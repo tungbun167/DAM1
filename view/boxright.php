@@ -19,11 +19,17 @@
                 <div class="box_title">DANH MỤC</div>
                 <div class="box_content2 product_portfolio">
                   <ul >
-                     <li><a href="">Đồng hồ </a></li>
-                     <li><a href="">Laptop</a></li>
+                    <?php foreach($dsdm as $dm):
+                      extract($dm);
+                      $linkdm = "index.php?act=sanpham&iddm".$id;
+                      ?>
+                      
+                     <li><a href="<?= $linkdm ?>"> <?= $name?> </a></li>
+                     <?php endforeach ?>
+                     <!-- <li><a href="">Laptop</a></li>
                      <li><a href="">Điện thoại</a></li>
                      <li><a href="">Ipad</a></li>
-                     <li><a href="">Tivi</a></li>
+                     <li><a href="">Tivi</a></li> -->
                   </ul>
                 </div>
                 <div class="box_search">
@@ -36,7 +42,17 @@
              <div class="mb">
                 <div class="box_title">SẢN PHẨM BÁN CHẠY</div>
                 <div class="box_content">
+                  <?php foreach($dstop10 as $ds): 
+                    extract($ds);
+                    $hinh = $img_path.$img;
+                    $linksp = "index.php?act=sanphamct&idsp".$id;
+                    ?>
                 <div class="selling_products" style="width:100%;">
+                  <img src="<?= $hinh ?>" alt="anh">
+                  <a href="<?= $linksp ?>"><?= $name ?></a>
+                </div>
+                <?php endforeach ?>
+                <!-- <div class="selling_products" style="width:100%;">
                   <img src="./img/clockforgirl.jpg" alt="anh">
                   <a href="">Đồng hồ đeo tay nữ</a>
                 </div>
@@ -51,11 +67,7 @@
                 <div class="selling_products" style="width:100%;">
                   <img src="./img/clockforgirl.jpg" alt="anh">
                   <a href="">Đồng hồ đeo tay nữ</a>
-                </div>
-                <div class="selling_products" style="width:100%;">
-                  <img src="./img/clockforgirl.jpg" alt="anh">
-                  <a href="">Đồng hồ đeo tay nữ</a>
-                </div>
+                </div> -->
                 </div>
              </div>
             </div>

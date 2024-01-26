@@ -8,16 +8,30 @@
                </div>
          
           <div class="items">
-           <div class="box_items">
+            <?php 
+            $i =0;
+            foreach($spnew as $sp) :
+               extract($sp);
+               $hinh = $img_path.$img;
+               $link = "index.php?act=sanphamct&idsp=".$id;
+               if (($i ==2) || ($i==5) || ($i==8)) {
+                  $mr ="";
+               }else{
+                  $mr = "mr";
+               }
+               ?>
+               
+           <div class="box_items '.$mr.'">
              <div class="box_items_img">
-                <img src="img/realme2.jpg" alt="">
+                <img src="<?php echo $hinh ?>" alt="">
                 <div class="add" href="">ADD TO CART</div>
              </div>
-              <a class="item_name" href="">SamSung J4</a>
-              <p class="price">$4000</p>
-              
-           </div>
-           <div class="box_items">
+              <a class="item_name" href="<?= $link ?> "><?= $name?></a>
+              <p class="price"><?= $price?></p>
+          
+         </div>
+         <?php endforeach ?>
+           <!-- <div class="box_items">
              <div class="box_items_img">
                 <img src="img/iphoneX.jpg" alt="">
                 <div class="add" href="">ADD TO CART</div>
@@ -25,8 +39,8 @@
               <a class="item_name" href="">SamSung J4</a>
               <p class="price">$4000</p>
               
-           </div>
-           <div class="box_items">
+           </div> -->
+           <!-- <div class="box_items">
              <div class="box_items_img">
                 <img src="img/iphoneX.jpg" alt="">
                 <div class="add" href="">ADD TO CART</div>
@@ -88,7 +102,7 @@
               <a class="item_name" href="">SamSung J4</a>
               <p class="price">$4000</p>
               
-           </div>
+           </div> -->
            
            
           
