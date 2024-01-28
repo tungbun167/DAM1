@@ -1,6 +1,8 @@
 <?php
+    
     include "model/pdo.php";
     include "model/sanpham.php";
+    include "model/quyenmk.php";
     include "view/header.php";
     include "global.php";
     $spnew = loadall_sanpham_home();
@@ -28,8 +30,35 @@
                     include "view/home.php";
                 }
                 break;
+            case "dangki" :
+                if (isset($_POST['dangki'])) {
+                    $email = $_POST['email'];
+                    $user = $_POST['user'];
+                    $pass = $_POST['pass'];
+                    insert_taikhoan($email,$user,$pass);
+                    $thongbao = "đăng kí thành công";
+                }
+                include "view/login/dangki.php";
+                break;
+            case "quyenmk" :
+                if (isset($_POST['guiemail'])) {
+                    $email = $_POST['email'];
+                    $sendMailMess = sendMail($email);
+                }
+                include "view/login/quyenmk.php";
 
+                break;
+            case 'dangnhap':
+                if (isset($_POST['dangnhap'])) {
+                    $loginMess = dangnhap($_POST['user'], $_POST['pass']);
+                    include "view/home.php";
 
+                }
+                break;
+            case 'dangxuat':
+              dangxuat();
+              include "view/home.php";
+                break;
             
         }
     }else{

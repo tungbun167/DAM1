@@ -57,3 +57,29 @@ function load_binhluan($id){
     return $result;
 
 }
+
+// Tài khoản
+
+function insert_taikhoan($email, $user,$pass){
+    $sql = "INSERT INTO `taikhoan` (`email`,`user`,`pass`) VALUES ('$email','$user','$pass')";
+    pdo_execute($sql);
+    return $sql;
+}
+
+// đăng nhập
+    session_start();
+function dangnhap($user,$pass){
+     $sql = "SELECT *FROM taikhoan WHERE user='$user' and pass='$pass'";
+     $taikhoan = pdo_query_one($sql);
+
+     if ($taikhoan != false) {
+        $_SESSION['user']=$user;
+     }else{
+        return "Thông Tin Tài Khoản Sai";
+     }
+}
+function dangxuat(){
+    if (isset($_SESSION['user'])) {
+        unset($_SESSION['user']);
+    }
+}
