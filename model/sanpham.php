@@ -52,10 +52,27 @@ function load_binhluan($id){
     $sql = "SELECT binhluan.noidung, binhluan.ngaybinhluan, taikhoan.user FROM `binhluan`
     LEFT JOIN taikhoan ON binhluan.iduser = taikhoan.id
     LEFT JOIN sanpham ON binhluan.idpro = sanpham.id
-    WHERE sanpham.id = 1 ";
+    WHERE sanpham.id = $id ";
     $result = pdo_query($sql);
     return $result;
 
+}
+function loadall_binhluan($keyw="",$id=0){
+    $sql = "SELECT binhluan.id,binhluan.noidung,binhluan.iduser,binhluan.idpro,binhluan.ngaybinhluan, taikhoan.user,
+    sanpham.name , sanpham.img FROM `binhluan`
+   INNER JOIN taikhoan ON binhluan.iduser=taikhoan.id INNER JOIN
+   sanpham ON binhluan.idpro = sanpham.id";
+    // where 1 tức là nó đúng
+    if($keyw!=""){
+        $sql.=" and name like '%".$keyw."%'";
+    }
+    if($id>0){
+        $sql.=" and iddm ='".$id."'";
+        
+    }
+    $sql.=" order by binhluan.id desc";
+    $listsanpham=pdo_query($sql);
+    return  $listsanpham;
 }
 
 // Tài khoản
@@ -82,4 +99,25 @@ function dangxuat(){
     if (isset($_SESSION['user'])) {
         unset($_SESSION['user']);
     }
+}
+
+function load_taikhoan(){
+    $sql = "SELECT * FROM taikhoan where 1";
+    $listtaikhoan = pdo_query($sql);
+    return $listtaikhoan;
+}
+function insert_sanpham($tensp,$giasp, $hinh, $mota, $iddm){
+    $sql = "INSERT INTO `sanpham`(`name`, `price`, `img`, `mota`, `iddm`) VALUES ('$tensp', '$giasp', '$hinh', '$mota', '$iddm');";
+    pdo_execute($sql);
+}
+
+
+
+// Thống kê
+
+function load_thongke(){
+    $sql= "SELECT dm.id, dm.name, COUNT(*) 'soluong', MIN(price) 'gia_min', MAX(price)
+     'gia_max', AVG(price) 'gia_avg' FROM danhmuc dm JOIN sanpham sp ON dm.id=sp.iddm
+      GROUP BY dm.id, dm.name ORDER BY soluong DESC";
+    return pdo_query($sql);
 }

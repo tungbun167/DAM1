@@ -25,7 +25,7 @@
             <ul>
                 
                 <li class="dropdown">
-                  <a class="dropdownbtn" href="">Trang chủ</a>
+                  <a class="dropdownbtn" href="index.php">Trang chủ</a>
                   <div class="dropdown_content">
                      <a href="">Đồng hồ</a>
                      <a href="">Điện thoại</a>
