@@ -34,7 +34,10 @@
             </div>
 
             <input type="submit" value="Gửi" name="guiemail">
-            <input type="reset" value="Nhập lại">
+            <input type="reset" value="Nhập lại"> <br>
+            <?php if (isset($sendMailMess) &&($sendMailMess != '')) {
+                echo $sendMailMess;
+            } ?>
           </form>
         </div>
 
