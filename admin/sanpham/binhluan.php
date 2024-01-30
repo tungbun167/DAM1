@@ -17,6 +17,8 @@
             </tr>
             <?php foreach ($listbinhluan as $list) {
                     extract($list);
+                    $suabl = "index.php?act=suabl&idbl=".$id;
+                    $xoabl = "index.php?act=xoabl&idbl=".$id;
                    
             echo '    
             <tr>
@@ -28,8 +30,8 @@
                 <td>'.$ngaybinhluan.'</td>
                 
                 
-                <td><input type="button" value="Sửa">   <input type="button" value="Xóa"></td>
-               
+                <td><a href="'.$suabl.'"><input type="button" value="Sửa"></a>   
+                <td><a href="'.$xoabl.'"><input type="button" value="xóa" onclick="return confirm(\'bạn có chắc muốn xóa không\')"></a>
             </tr>';
                 }?>
             

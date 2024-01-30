@@ -57,11 +57,16 @@ function load_binhluan($id){
     return $result;
 
 }
+function load_one_binhluan($id){
+    $sql = "SELECT *FROM binhluan where id=$id";
+    $result = pdo_query_one($sql);
+    return $result;
+}
 function loadall_binhluan($keyw="",$id=0){
     $sql = "SELECT binhluan.id,binhluan.noidung,binhluan.iduser,binhluan.idpro,binhluan.ngaybinhluan, taikhoan.user,
     sanpham.name , sanpham.img FROM `binhluan`
-   INNER JOIN taikhoan ON binhluan.iduser=taikhoan.id INNER JOIN
-   sanpham ON binhluan.idpro = sanpham.id";
+   INNER JOIN taikhoan ON binhluan.iduser=taikhoan.id 
+   INNER JOIN sanpham ON binhluan.idpro = sanpham.id";
     // where 1 tức là nó đúng
     if($keyw!=""){
         $sql.=" and name like '%".$keyw."%'";
@@ -106,6 +111,12 @@ function load_taikhoan(){
     $listtaikhoan = pdo_query($sql);
     return $listtaikhoan;
 }
+function load_one_taikhoan($id){
+    $sql = "SELECT *FROM taikhoan where id=$id";
+    $result = pdo_query_one($sql);
+    return $result;
+}
+
 function insert_sanpham($tensp,$giasp, $hinh, $mota, $iddm){
     $sql = "INSERT INTO `sanpham`(`name`, `price`, `img`, `mota`, `iddm`) VALUES ('$tensp', '$giasp', '$hinh', '$mota', '$iddm');";
     pdo_execute($sql);
@@ -120,4 +131,52 @@ function load_thongke(){
      'gia_max', AVG(price) 'gia_avg' FROM danhmuc dm JOIN sanpham sp ON dm.id=sp.iddm
       GROUP BY dm.id, dm.name ORDER BY soluong DESC";
     return pdo_query($sql);
+}
+
+//update ảnh
+
+// function update_sanpham($id,$iddm,$tensp,$giasp,$mota,$hinh){
+//         if ($hinh !="") {
+//             $sql = "UPDATE `sanpham` SET `name` = '{$tensp}',
+//              `price` = '{$giasp}', `mota`='{$mota}', `img`='{$hinh}', `iddm`='{$iddm}'
+//                 WHERE `sanpham`.`id`=$id ";
+//         }else{
+//             $sql = "UPDATE `sanpham` SET `name` = '{$tensp}',
+//              `price` = '{$giasp}', `mota`='{$mota}', `img`='{$hinh}', `iddm`='{$iddm}'
+//                 WHERE `sanpham`.`id`=$id ";
+//         }
+//         pdo_execute($sql);
+// }
+function update_sanpham($id,$iddm,$tensp,$giasp,$mota,$hinh){
+    if($hinh!=""){
+        // $sql="update sanpham set iddm='".$iddm."',name='".$tensp."',price='".$giasp."',mota='".$mota."',img='".$hinh."' where id=".$id;
+        $sql=  "UPDATE `sanpham` SET `name` = '{$tensp}', `price` = '{$giasp}', `mota` = '{$mota}',`img` = '{$hinh}', `iddm` = '{$iddm}' WHERE `sanpham`.`id` = $id";
+    }else{
+        //  $sql="update sanpham set iddm='".$iddm."',name='".$tensp."',price='".$giasp."',mota='".$mota."' where id=".$id;
+        $sql=  "UPDATE `sanpham` SET `name` = '{$tensp}', `price` = '{$giasp}', `mota` = '{$mota}', `iddm` = '{$iddm}' WHERE `sanpham`.`id` = $id";
+    }
+    pdo_execute($sql);
+    
+}
+function update_taikhoan($id,$tenkh,$pass,$email,$address,$tel){
+    $sql = "UPDATE `taikhoan` SET `user` = '{$tenkh}', `pass` = '{$pass}', `email`= '{$email}', `address` = '{$address}', `tel` = '{$tel}' WHERE `taikhoan`.`id`=$id";
+    pdo_execute($sql);
+}
+
+function update_binhluan($id,$iduser,$noidung,$ngaybinhluan){
+    $sql = "UPDATE `binhluan` SET `iduser` = '{$iduser}', `noidung` = '{$noidung}', `ngaybinhluan`= '{$ngaybinhluan}' WHERE `binhluan`.`id`=$id";
+    pdo_execute($sql);
+}
+function xoasp($id){
+    $sql = "DELETE FROM sanpham WHERE id=" .$id;
+    pdo_execute($sql);
+}
+
+function xoabl($id){
+    $sql = "DELETE FROM binhluan WHERE id=" .$id;
+    pdo_execute($sql);
+}
+function xoakh($id){
+    $sql = "DELETE FROM taikhoan WHERE id=" .$id;
+    pdo_execute($sql);
 }

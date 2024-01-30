@@ -17,6 +17,8 @@
             </tr>
             <?php foreach ($listtaikhoan as $list) {
                     extract($list);
+                    $suakh = "index.php?act=suakh&idkh=".$id;
+                    $xoakh = "index.php?act=xoakh&idkh=".$id;
                 
             echo '    
             <tr>
@@ -28,8 +30,8 @@
                 <td>'.$address.'</td>
                 <td>'.$tel.'</td>
                 
-                
-                <td><input type="button" value="Sửa">   <input type="button" value="Xóa"></td>
+                <td><a href="'.$suakh.'"><input type="button" value="Sửa"></a>
+                <td><a href="'.$xoakh.'"><input type="button" value="xóa" onclick="return confirm(\'bạn có chắc muốn xóa không\')"></a>
                
             </tr>';
                 }?>

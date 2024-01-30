@@ -5,7 +5,7 @@
          <div class="row2 form_content ">
           <form action="#" method="POST">
            <div class="row2 mb10 formds_loai">
-            <form action="index.php?act=listsp" method="POST">
+            <form action="index.php?act=listsp" method="POST" enctype="multipart/form-data">
                 <input type="text" name="keyw">
                 <select name="iddm" id="">
                     <option value="0">Tất Cả</option>
@@ -32,6 +32,7 @@
             <?php foreach ($listsanpham as $list) {
                     extract($list);
                     $suasp = "index.php?act=suasp&idsp=".$id;
+                    $xoasp = "index.php?act=xoasp&idsp=".$id;
                     $hinh= "../upload/".$img;
                    if (is_file($hinh)) {
                         $hinh="<img src='".$hinh."' width='100px' height='100px'";
@@ -50,7 +51,7 @@
                 
                 <td><a href="'.$suasp.'"><input type="button" value="Sửa"></a>
                 
-                <input type="button" value="Xóa"></td>
+                <td><a href="'.$xoasp.'"><input type="button" value="xóa" onclick="return confirm(\'bạn có chắc muốn xóa không\')"></a>
                
             </tr>';
                 }?>
